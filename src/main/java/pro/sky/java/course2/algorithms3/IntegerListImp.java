@@ -42,12 +42,21 @@ public class IntegerListImp implements IntegerList {
         return array[index];
     }
 
+    private void grow() {
+        int newFullSize = (int) (fullSize * 1.5);
+        Integer[] newArray = new Integer[newFullSize];
+        for (int i=0; i < size; i++) {
+            newArray[i] = array[i];
+        }
+        fullSize = newFullSize;
+        array = newArray;
+    }
     public Integer add(Integer item) {
         if (item == null) {
             throw new InvalidArgument();
         }
         if (size == fullSize) {
-            throw new ArrayIsFull();
+            grow();
         }
         array[size] = item;
         size++;
@@ -75,7 +84,7 @@ public class IntegerListImp implements IntegerList {
             throw new WrongIndex();
         }
         if (size == fullSize) {
-            throw new ArrayIsFull();
+            grow();
         }
 
         if (index == size) {

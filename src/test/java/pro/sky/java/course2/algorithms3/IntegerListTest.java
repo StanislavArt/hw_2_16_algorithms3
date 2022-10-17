@@ -48,6 +48,17 @@ public class IntegerListTest {
     }
 
     @Test
+    public void addGrow() {
+        IntegerList out1 = new IntegerListImp(2);
+        out1.add(25);
+        out1.add(50);
+
+        Assertions.assertFalse(out1.size() > 2);
+        out1.add(100);
+        Assertions.assertTrue(out1.size() > 2);
+    }
+
+    @Test
     public void set() {
         Integer expected = 21;
         int beforeSize = out.size();
@@ -188,7 +199,6 @@ public class IntegerListTest {
         Integer element = null;
         Assertions.assertThrows(InvalidArgument.class, () -> out1.add(element));
         Assertions.assertThrows(WrongIndex.class, () -> out1.add(out1.size()+1, 100));
-        Assertions.assertThrows(ArrayIsFull.class, () -> out1.add(100));
 
         Assertions.assertThrows(InvalidArgument.class, () -> out1.set(0, element));
         Assertions.assertThrows(WrongIndex.class, () -> out1.set(-1, 100));
